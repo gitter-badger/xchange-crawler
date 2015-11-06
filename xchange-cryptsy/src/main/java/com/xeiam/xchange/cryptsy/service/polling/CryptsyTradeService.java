@@ -17,6 +17,7 @@ import com.xeiam.xchange.dto.trade.OpenOrders;
 import com.xeiam.xchange.dto.trade.UserTrades;
 import com.xeiam.xchange.exceptions.ExchangeException;
 import com.xeiam.xchange.exceptions.NotAvailableFromExchangeException;
+import com.xeiam.xchange.exceptions.NotYetImplementedForExchangeException;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 import com.xeiam.xchange.service.polling.trade.params.DefaultTradeHistoryParamsTimeSpan;
 import com.xeiam.xchange.service.polling.trade.params.TradeHistoryParams;
@@ -37,20 +38,17 @@ public class CryptsyTradeService extends CryptsyTradeServiceRaw implements Polli
     super(exchange);
   }
 
-  @Override
   public OpenOrders getOpenOrders() throws IOException, ExchangeException {
 
     CryptsyOpenOrdersReturn openOrdersReturnValue = getCryptsyOpenOrders();
     return CryptsyAdapters.adaptOpenOrders(openOrdersReturnValue);
   }
 
-  @Override
   public String placeMarketOrder(MarketOrder marketOrder) throws IOException, ExchangeException {
 
     throw new NotAvailableFromExchangeException();
   }
 
-  @Override
   public String placeLimitOrder(LimitOrder limitOrder) throws IOException, ExchangeException {
 
     CryptsyPlaceOrderReturn result = super.placeCryptsyLimitOrder(CryptsyCurrencyUtils.convertToMarketId(limitOrder.getCurrencyPair()),
@@ -59,17 +57,19 @@ public class CryptsyTradeService extends CryptsyTradeServiceRaw implements Polli
     return Integer.toString(result.getReturnValue());
   }
 
-  @Override
   public boolean cancelOrder(String orderId) throws IOException, ExchangeException {
 
     CryptsyCancelOrderReturn ret = super.cancelSingleCryptsyLimitOrder(Integer.valueOf(orderId));
     return ret.isSuccess();
   }
 
+  public UserTrades getTradeHistory(Object... objects) throws ExchangeException, NotAvailableFromExchangeException, NotYetImplementedForExchangeException, IOException {
+    throw new NotYetImplementedForExchangeException();
+  }
+
   /**
    * @param params Can optionally implement {@link TradeHistoryParamsTimeSpan}. All other TradeHistoryParams types will be ignored.
    */
-  @Override
   public UserTrades getTradeHistory(TradeHistoryParams params) throws IOException {
 
     CryptsyTradeHistoryReturn tradeHistoryReturnData;
@@ -86,7 +86,6 @@ public class CryptsyTradeService extends CryptsyTradeServiceRaw implements Polli
    * Create {@link TradeHistoryParams} that supports {@link TradeHistoryParamsTimeSpan}.
    */
 
-  @Override
   public com.xeiam.xchange.service.polling.trade.params.TradeHistoryParams createTradeHistoryParams() {
 
     return new DefaultTradeHistoryParamsTimeSpan();
