@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
@@ -69,4 +70,15 @@ public class MainController {
     public Collection<TickerDto> getBifiniex() throws IOException {
         return bitfinex.getLastData();
     }
+
+    @RequestMapping(value = "/markets", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<TickerDto> getMarkets() throws IOException {
+        Collection<TickerDto> result = new ArrayList<>();
+        result.addAll(poloniex.getLastData());
+        result.addAll(cryptsy.getLastData());
+        result.addAll(bitfinex.getLastData());
+        return result;
+    }
 }
+

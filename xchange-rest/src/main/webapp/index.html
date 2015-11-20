@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CyberFund.Api</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="lib/angular-1.4.1/angular.min.js"></script>
+	<script src="js/app.js"></script>
+</head>
+<body ng-app="cyberfund.api">
+	<div id="main">
+		<div class="container">
+			<table class="table table-bordered" ng-controller="homeCtrl">
+				<tr>
+					<th>Market</th>
+					<th>Base</th>
+					<th>Quote</th>
+					<th>Last</th>
+					<th>Volume</th>
+					<th>Last Update</th>
+				</tr>
+				<tr ng-repeat="item in items">
+					<td ng-bind="item.market"></td>
+					<td ng-bind="item.base"></td>
+					<td ng-bind="item.quote"></td>
+					<td ng-bind="item.last.native"></td>
+					<td ng-bind="item.volume.native"></td>
+					<td ng-bind="item.timestamp"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

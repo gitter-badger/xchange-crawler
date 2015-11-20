@@ -46,7 +46,7 @@
 
     <servlet-mapping>
         <servlet-name>controllerServlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
 
