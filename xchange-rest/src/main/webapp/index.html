@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CyberFund.Api</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/app.css" rel="stylesheet">
 	<script src="lib/angular-1.4.1/angular.min.js"></script>
 	<script src="js/app.js"></script>
 </head>
@@ -20,6 +21,7 @@
 					<th>Last</th>
 					<th>Volume</th>
 					<th>Last Update</th>
+					<th>Received</th>
 				</tr>
 				<tr ng-repeat="item in items">
 					<td ng-bind="item.market"></td>
@@ -27,7 +29,8 @@
 					<td ng-bind="item.quote"></td>
 					<td ng-bind="item.last.native"></td>
 					<td ng-bind="item.volume.native"></td>
-					<td ng-bind="item.timestamp"></td>
+					<td ng-bind="item.timestamp | date: 'medium'"></td>
+					<td ng-bind="item.received | date: 'medium'"></td>
 				</tr>
 			</table>
 		</div>

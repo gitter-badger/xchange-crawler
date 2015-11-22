@@ -50,12 +50,6 @@
 
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
-            <artifactId>xchange-bitstamp</artifactId>
-            <version>${xchange.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-poloniex</artifactId>
             <version>${xchange.version}</version>
         </dependency>
@@ -74,7 +68,25 @@
 
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-okcoin</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-bitstamp</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-lakebtc</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-btce</artifactId>
             <version>${xchange.version}</version>
         </dependency>
 

@@ -21,10 +21,6 @@ public class CryptsyMarket extends AbstractMarket<CryptsyPublicMarketDataService
         exchange = ExchangeFactory.INSTANCE.createExchange(CryptsyExchange.class.getName());
     }
 
-    @Scheduled(fixedDelay = 30000)
-    protected void loadData() throws IOException {
-        super.loadData();
-    }
 
 }
 

@@ -21,9 +21,4 @@ public class BitfinexMarket extends AbstractMarket<BitfinexMarketDataServiceRaw>
         exchange = ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class.getName());
     }
 
-    @Scheduled(fixedDelay = 30000)
-    protected void loadData() throws IOException {
-        super.loadData();
-    }
-
 }

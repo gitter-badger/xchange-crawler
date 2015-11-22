@@ -17,9 +17,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by andreyl on 04.11.15.
@@ -28,7 +30,7 @@ public abstract class AbstractMarket<T extends BaseExchangeService> implements I
 
     protected Exchange exchange;
 
-    private PollingMarketDataService dataService;
+    protected PollingMarketDataService dataService;
 
     private Map<CurrencyPair, TickerDto> tickers;
 
@@ -56,20 +58,29 @@ public abstract class AbstractMarket<T extends BaseExchangeService> implements I
         return "http://" + exchange.getDefaultExchangeSpecification().getHost() + "/";
     }
 
-    //@Scheduled(fixedDelay = 30000)
     protected void loadData() throws IOException {
         List<TickerDto> tickers = new ArrayList<TickerDto>();
         for (CurrencyPair pair : getCurrencyPairs()) {
-            if (chaingearDataLoader.getCurrencyName(pair.counterSymbol) == null ||
-                    chaingearDataLoader.getCurrencyName(pair.baseSymbol) == null) {
+            if (!isCurrency(pair.counterSymbol) || !isCurrency(pair.baseSymbol)) {
                 continue;
             }
-            this.tickers.put(pair, chaingearDataLoader.createTickerDto(getTicker(pair), getMarketUrl()));
+            try {
+                this.tickers.put(pair, chaingearDataLoader.createTickerDto(getTicker(pair), getMarketUrl()));
+            } catch (IOException e) {
+                System.out.print("Host: " + exchange.getDefaultExchangeSpecification().getHost() + ". Pair: " + pair.baseSymbol + "/" + pair.counterSymbol);
+                System.out.println(e);
+            }
         }
     }
 
     public Collection<TickerDto> getLastData() {
         return tickers.values();
+    }
+
+    boolean isCurrency(String code) {
+        return Currency.getAvailableCurrencies().stream()
+                .anyMatch(currency -> currency.getCurrencyCode().equals(code)) ||
+                chaingearDataLoader.isCurrency(code);
     }
 
 }
