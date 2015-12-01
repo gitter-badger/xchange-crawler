@@ -50,6 +50,36 @@ public class MarketDataLoader implements InitializingBean {
     @Autowired
     private Btc38Market btc38;
 
+    @Autowired
+    private QuoineMarket quoine;
+
+    @Autowired
+    private JubiMarket jubi;
+
+    @Autowired
+    private BitbayMarket bitbay;
+
+    @Autowired
+    private HitbtcMarket hitbtc;
+
+    @Autowired
+    private BittrexMarket bittrex;
+
+    @Autowired
+    private LoyalbitMarket loyalbit;
+
+    @Autowired
+    private CexIOMarket cexIO;
+
+    @Autowired
+    private BTERMarket bter;
+
+    @Autowired
+    private CoinmateMarket coinmate;
+
+    @Autowired
+    private CaVirtExMarket caVirtEx;
+
     private List<AbstractMarket> markets;
 
     @Override
@@ -64,9 +94,22 @@ public class MarketDataLoader implements InitializingBean {
         markets.add(lakeBTC);
         markets.add(btce);
         markets.add(coinbase);
-        */
         markets.add(kraken);
-        markets.add(btc38);
+
+        //timeout for some reasons
+        //markets.add(btc38);
+
+        markets.add(quoine);
+        markets.add(jubi);
+        markets.add(bitbay);
+        markets.add(hitbtc);
+        markets.add(bittrex);
+        markets.add(loyalbit);
+        markets.add(cexIO);
+        markets.add(bter);
+        */
+        markets.add(coinmate);
+        markets.add(caVirtEx);
     }
 
     @Scheduled(fixedRate = 15000)

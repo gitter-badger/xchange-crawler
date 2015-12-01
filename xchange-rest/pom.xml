@@ -71,7 +71,7 @@
             <artifactId>xchange-okcoin</artifactId>
             <version>${xchange.version}</version>
         </dependency>
-        <!--
+        <!-- absent in last release
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-gatecoin</artifactId>
@@ -90,7 +90,7 @@
             <version>${xchange.version}</version>
         </dependency>
 
-        <!--
+        <!-- absent in last release
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-bitx</artifactId>
@@ -116,13 +116,71 @@
             <version>${xchange.version}</version>
         </dependency>
 
-        <!--
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-btc38</artifactId>
             <version>${xchange.version.snapshot}</version>
         </dependency>
-        -->
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-quoine</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-jubi</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-bitbay</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-hitbtc</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-bittrex</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-loyalbit</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-cexio</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-bter</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-coinmate</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-cavirtex</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
 
         <!-- Pusher -->
         <dependency>

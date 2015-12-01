@@ -57,7 +57,9 @@ public abstract class AbstractMarket<T extends BaseExchangeService> implements I
     }
 
     public String getMarketUrl() {
-        return "http://" + exchange.getDefaultExchangeSpecification().getHost() + "/";
+        return exchange.getDefaultExchangeSpecification().getHost() != null ?
+                "http://" + exchange.getDefaultExchangeSpecification().getHost() + "/" :
+                exchange.getDefaultExchangeSpecification().getSslUri();
     }
 
     protected void loadData() throws IOException {
@@ -67,7 +69,8 @@ public abstract class AbstractMarket<T extends BaseExchangeService> implements I
                 continue;
             }
             try {
-                this.tickers.put(pair, chaingearDataLoader.createTickerDto(getTicker(pair), getMarketUrl()));
+                Ticker ticker = getTicker(pair);
+                this.tickers.put(pair, chaingearDataLoader.createTickerDto(ticker, getMarketUrl()));
             } catch (IOException e) {
                 System.out.print("Host: " + exchange.getDefaultExchangeSpecification().getHost() + ". Pair: " + pair.baseSymbol + "/" + pair.counterSymbol);
                 System.out.println(e);
