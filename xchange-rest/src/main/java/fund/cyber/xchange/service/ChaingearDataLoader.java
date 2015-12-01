@@ -40,11 +40,15 @@ public class ChaingearDataLoader implements InitializingBean {
         return loadCurrencies().stream().collect(Collectors.toMap(
                 currency -> currency.getToken().getToken_symbol(),
                 Currency::getSystem,
-                (first,last) -> last));
+                (first, last) -> last));
     }
 
     public String getCurrencyName(String symbol) {
         return currencyNames.get(symbol);
+    }
+
+    public boolean isCurrency(String symbol) {
+        return currencyNames.containsKey(symbol);
     }
 
     @Override
@@ -54,14 +58,19 @@ public class ChaingearDataLoader implements InitializingBean {
 
     private String getNameOrLeaveSymbol(String symbol) {
         String name = getCurrencyName(symbol);
-        return (name != null) ? name : symbol;
+        if (name != null) {
+            return name;
+        }
+        try {
+           return java.util.Currency.getInstance(symbol).getDisplayName();
+        } catch (IllegalArgumentException ex) {
+            return symbol;
+        }
     }
 
-    //FIXME need to add fiat currencies
     public TickerDto createTickerDto(Ticker ticker, String market) {
         TickerDto dto = new TickerDto();
-        //FIXME need to have parameter request for this code
-        //dto.setTimestamp(ticker.getTimestamp() != null ? ticker.getTimestamp() : new Date());
+        dto.setReceived(new Date());
         dto.setTimestamp(ticker.getTimestamp());
         dto.setMarket(market);
         dto.setBase(getNameOrLeaveSymbol(ticker.getCurrencyPair().counterSymbol));

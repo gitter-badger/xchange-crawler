@@ -3,6 +3,7 @@ package fund.cyber.xchange.rest;
 
 import fund.cyber.xchange.markets.BitfinexMarket;
 import fund.cyber.xchange.markets.CryptsyMarket;
+import fund.cyber.xchange.markets.MarketDataLoader;
 import fund.cyber.xchange.markets.PoloniexMarket;
 import fund.cyber.xchange.model.api.CalendarDto;
 import fund.cyber.xchange.model.api.TickerDto;
@@ -30,13 +31,7 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private PoloniexMarket poloniex;
-
-    @Autowired
-    private CryptsyMarket cryptsy;
-
-    @Autowired
-    private BitfinexMarket bitfinex;
+    private MarketDataLoader marketData;
 
     @Autowired
     private ChaingearDataLoader chaingearDataLoader;
@@ -53,31 +48,11 @@ public class MainController {
         return chaingearDataLoader.loadCurrencies();
     }
 
-    @RequestMapping(value = "/poloniex", method = RequestMethod.GET)
-    @ResponseBody
-    public Collection<TickerDto> getPoloniex() throws IOException {
-        return poloniex.getLastData();
-    }
-
-    @RequestMapping(value = "/cryptsy", method = RequestMethod.GET)
-    @ResponseBody
-    public Collection<TickerDto> getCryptsy() throws IOException {
-        return cryptsy.getLastData();
-    }
-
-    @RequestMapping(value = "/bitfinex", method = RequestMethod.GET)
-    @ResponseBody
-    public Collection<TickerDto> getBifiniex() throws IOException {
-        return bitfinex.getLastData();
-    }
-
     @RequestMapping(value = "/markets", method = RequestMethod.GET)
     @ResponseBody
     public Collection<TickerDto> getMarkets() throws IOException {
         Collection<TickerDto> result = new ArrayList<>();
-        result.addAll(poloniex.getLastData());
-        result.addAll(cryptsy.getLastData());
-        result.addAll(bitfinex.getLastData());
+        result.addAll(marketData.getLastData());
         return result;
     }
 }

@@ -15,6 +15,7 @@ public class TickerDto {
     private String quote;
     private LastPriceDto last;
     private VolumeDto volume;
+    private Date received;
 
     public Date getTimestamp() {
         return timestamp;
@@ -62,5 +63,13 @@ public class TickerDto {
 
     public void setVolume(VolumeDto volume) {
         this.volume = volume;
+    }
+
+    public void setReceived(Date received) {
+        this.received = received;
+    }
+
+    public Date getReceived() {
+        return received;
     }
 }
