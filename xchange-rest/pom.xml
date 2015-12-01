@@ -182,6 +182,24 @@
             <version>${xchange.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-coinsetter</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-mexbt</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-bleutrade</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
         <!-- Pusher -->
         <dependency>
             <groupId>com.pusher</groupId>

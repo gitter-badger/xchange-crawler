@@ -80,6 +80,15 @@ public class MarketDataLoader implements InitializingBean {
     @Autowired
     private CaVirtExMarket caVirtEx;
 
+    @Autowired
+    private CoinsetterMarket coinsetter;
+
+    @Autowired
+    private MeXBTMarket meXBT;
+
+    @Autowired
+    private BleutradeMarket bleutrade;
+
     private List<AbstractMarket> markets;
 
     @Override
@@ -110,6 +119,9 @@ public class MarketDataLoader implements InitializingBean {
         */
         markets.add(coinmate);
         markets.add(caVirtEx);
+        markets.add(coinsetter);
+        markets.add(meXBT);
+        markets.add(bleutrade);
     }
 
     @Scheduled(fixedRate = 15000)
