@@ -1,5 +1,6 @@
 package fund.cyber.xchange.markets;
 
+import com.xeiam.xchange.btc38.Btc38;
 import fund.cyber.xchange.model.api.TickerDto;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,21 @@ public class MarketDataLoader implements InitializingBean {
     @Autowired
     private BTCEMarket btce;
 
+    @Autowired
+    private CoinbaseMarket coinbase;
+
+    @Autowired
+    private KrakenMarket kraken;
+
+    @Autowired
+    private Btc38Market btc38;
+
     private List<AbstractMarket> markets;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         markets = new ArrayList<>();
+        /*
         markets.add(poloniex);
         markets.add(cryptsy);
         markets.add(bitfinex);
@@ -52,6 +63,10 @@ public class MarketDataLoader implements InitializingBean {
         markets.add(bitstamp);
         markets.add(lakeBTC);
         markets.add(btce);
+        markets.add(coinbase);
+        */
+        markets.add(kraken);
+        markets.add(btc38);
     }
 
     @Scheduled(fixedRate = 15000)

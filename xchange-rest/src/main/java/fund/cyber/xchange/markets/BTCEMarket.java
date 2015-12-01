@@ -3,12 +3,8 @@ package fund.cyber.xchange.markets;
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.btce.v3.BTCEExchange;
 import com.xeiam.xchange.btce.v3.dto.marketdata.BTCEExchangeInfo;
-import com.xeiam.xchange.btce.v3.dto.marketdata.BTCEPairInfo;
-import com.xeiam.xchange.btce.v3.service.polling.BTCEMarketDataService;
 import com.xeiam.xchange.btce.v3.service.polling.BTCEMarketDataServiceRaw;
 import com.xeiam.xchange.currency.CurrencyPair;
-import com.xeiam.xchange.lakebtc.LakeBTCExchange;
-import com.xeiam.xchange.lakebtc.service.polling.LakeBTCMarketDataService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -36,5 +32,4 @@ public class BTCEMarket extends AbstractMarket<BTCEMarketDataServiceRaw> {
         info.getPairs().keySet().forEach(p -> result.add(new CurrencyPair(p.toUpperCase().replace('_','/'))));
         return result;
     }
-
 }

@@ -24,7 +24,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Created by andreyl on 04.11.15.
+ * Abstract Market Service
+ * <p>
+ * @author Andrey Lobarev nxtpool@gmail.com
  */
 public abstract class AbstractMarket<T extends BaseExchangeService> implements InitializingBean {
 

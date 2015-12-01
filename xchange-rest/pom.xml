@@ -71,7 +71,13 @@
             <artifactId>xchange-okcoin</artifactId>
             <version>${xchange.version}</version>
         </dependency>
-
+        <!--
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-gatecoin</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+        -->
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-bitstamp</artifactId>
@@ -84,11 +90,39 @@
             <version>${xchange.version}</version>
         </dependency>
 
+        <!--
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-bitx</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+        -->
+
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-btce</artifactId>
             <version>${xchange.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-coinbase</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-kraken</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-btc38</artifactId>
+            <version>${xchange.version.snapshot}</version>
+        </dependency>
+        -->
 
         <!-- Pusher -->
         <dependency>
@@ -117,6 +151,7 @@
     <properties>
         <spring.version>4.1.7.RELEASE</spring.version>
         <xchange.version>3.1.0</xchange.version>
+        <xchange.version.snapshot>4.0.0-SNAPSHOT</xchange.version.snapshot>
         <xchange.version.local>3.1.0.LOCAL</xchange.version.local>
     </properties>
 
