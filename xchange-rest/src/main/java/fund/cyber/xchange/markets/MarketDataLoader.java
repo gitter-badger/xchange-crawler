@@ -1,18 +1,18 @@
 package fund.cyber.xchange.markets;
 
-import com.xeiam.xchange.btc38.Btc38;
 import fund.cyber.xchange.model.api.TickerDto;
+import fund.cyber.xchange.model.common.IndexHolder;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -91,23 +91,24 @@ public class MarketDataLoader implements InitializingBean {
 
     private List<AbstractMarket> markets;
 
+    private final IndexHolder indexHolder = new IndexHolder();
+
     @Override
     public void afterPropertiesSet() throws Exception {
         markets = new ArrayList<>();
-        /*
+
         markets.add(poloniex);
         markets.add(cryptsy);
         markets.add(bitfinex);
         markets.add(okCoin);
         markets.add(bitstamp);
-        markets.add(lakeBTC);
+        //internal errror for some reason
+        //markets.add(lakeBTC);
         markets.add(btce);
         markets.add(coinbase);
         markets.add(kraken);
-
         //timeout for some reasons
         //markets.add(btc38);
-
         markets.add(quoine);
         markets.add(jubi);
         markets.add(bitbay);
@@ -116,29 +117,49 @@ public class MarketDataLoader implements InitializingBean {
         markets.add(loyalbit);
         markets.add(cexIO);
         markets.add(bter);
-        */
         markets.add(coinmate);
         markets.add(caVirtEx);
         markets.add(coinsetter);
         markets.add(meXBT);
         markets.add(bleutrade);
+        indexHolder.setLength(markets.size());
     }
 
-    @Scheduled(fixedRate = 15000)
+    private AbstractMarket getNextMarket() {
+        synchronized (indexHolder) {
+            AbstractMarket market = markets.get(indexHolder.getIndex());
+            indexHolder.increaseIndex();
+            return market;
+        }
+    }
+
+    @Autowired
+    private TaskExecutor taskExecutor;
+
+    @Scheduled(fixedRate = 1000)
     protected void loadData() throws IOException {
+        taskExecutor.execute(() -> {
+            AbstractMarket market = getNextMarket();
 
-        System.out.print("Request started: ");
-        System.out.println(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(Calendar.getInstance().getTime()));
+            Calendar start = Calendar.getInstance();
 
-        markets.forEach(abstractMarket -> {
-                    try {
-                        abstractMarket.loadData();
-                    } catch (IOException e) {
-                        System.out.print("Host: " + abstractMarket.exchange.getDefaultExchangeSpecification().getHost());
-                        System.out.println(e);
-                    }
-                }
-        );
+            try {
+                market.loadData();
+            } catch (IOException e) {
+                System.out.print("Host: " + market.exchange.getDefaultExchangeSpecification().getHost());
+                System.out.println(e);
+            }
+            /*
+            System.out.print("Market: ");
+            System.out.print(market.getMarketUrl());
+            System.out.print(". Request started at: ");
+            System.out.print(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(start.getTime()));
+            System.out.print(". request takes : ");
+            System.out.print((Calendar.getInstance().getTimeInMillis() - start.getTimeInMillis()) / 1000.0);
+            System.out.println(" seconds.");
+            */
+
+        });
     }
 
     public List<TickerDto> getLastData() {
