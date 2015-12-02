@@ -1,18 +1,14 @@
 package fund.cyber.xchange.markets;
 
 import com.xeiam.xchange.Exchange;
-import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.marketdata.Ticker;
-import com.xeiam.xchange.poloniex.PoloniexExchange;
-import com.xeiam.xchange.poloniex.service.polling.PoloniexMarketDataServiceRaw;
 import com.xeiam.xchange.service.BaseExchangeService;
 import com.xeiam.xchange.service.polling.marketdata.PollingMarketDataService;
 import fund.cyber.xchange.model.api.TickerDto;
 import fund.cyber.xchange.service.ChaingearDataLoader;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +17,6 @@ import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Abstract Market Service
