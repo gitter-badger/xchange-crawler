@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST service to display actual market tickers
@@ -54,6 +55,12 @@ public class MainController {
         Collection<TickerDto> result = new ArrayList<>();
         result.addAll(marketData.getLastData());
         return result;
+    }
+
+    @RequestMapping(value = "/dictionary", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, String> getFiatCurrencies() throws IOException {
+        return chaingearDataLoader.loadFiatCurrencies();
     }
 }
 

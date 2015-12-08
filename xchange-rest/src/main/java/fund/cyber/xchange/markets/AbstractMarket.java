@@ -60,12 +60,12 @@ public abstract class AbstractMarket<T extends BaseExchangeService> implements I
     protected void loadData() throws IOException {
         List<TickerDto> tickers = new ArrayList<TickerDto>();
         for (CurrencyPair pair : getCurrencyPairs()) {
-            if (!isCurrency(pair.counterSymbol) || !isCurrency(pair.baseSymbol)) {
+            if (!chaingearDataLoader.isCurrency(pair.counterSymbol) || !chaingearDataLoader.isCurrency(pair.baseSymbol)) {
                 continue;
             }
             try {
                 Ticker ticker = getTicker(pair);
-                this.tickers.put(pair, chaingearDataLoader.createTickerDto(ticker, getMarketUrl()));
+                this.tickers.put(pair, chaingearDataLoader.createTickerDto(ticker, pair, getMarketUrl()));
             } catch (IOException e) {
                 System.out.print("Host: " + exchange.getDefaultExchangeSpecification().getHost() + ". Pair: " + pair.baseSymbol + "/" + pair.counterSymbol);
                 System.out.println(e);
@@ -75,12 +75,6 @@ public abstract class AbstractMarket<T extends BaseExchangeService> implements I
 
     public Collection<TickerDto> getLastData() {
         return tickers.values();
-    }
-
-    boolean isCurrency(String code) {
-        return Currency.getAvailableCurrencies().stream()
-                .anyMatch(currency -> currency.getCurrencyCode().equals(code)) ||
-                chaingearDataLoader.isCurrency(code);
     }
 
 }

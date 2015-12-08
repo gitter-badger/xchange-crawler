@@ -1,19 +1,26 @@
 package fund.cyber.xchange.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 import fund.cyber.xchange.model.api.LastPriceDto;
 import fund.cyber.xchange.model.api.TickerDto;
 import fund.cyber.xchange.model.api.VolumeDto;
 import fund.cyber.xchange.model.chaingear.Currency;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import si.mazi.rescu.serialization.jackson.JacksonMapper;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -28,12 +35,28 @@ public class ChaingearDataLoader implements InitializingBean {
 
     private Map<String, String> currencyNames;
 
+    private Map<String, String> fiatCurrencies = new HashMap<>();
+
+    @Value("${ignore.symbols}")
+    private String ignoreSymbolsString;
+
+    @Value("${rename.symbols}")
+    private String renameSymbolsString;
+
+    private Set<String> ignoreSymbols;
+    private Map<String, String> renameSymbols;
+
+
     public List<Currency> loadCurrencies() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         URL url = new URL(CHAINGEAR_URL);
 
         return objectMapper.readValue(url, objectMapper.getTypeFactory().
                 constructCollectionType(List.class, Currency.class));
+    }
+
+    public Map<String, String> loadFiatCurrencies() throws IOException {
+        return fiatCurrencies;
     }
 
     public Map<String, String> loadCurrencyNames() throws IOException {
@@ -47,13 +70,18 @@ public class ChaingearDataLoader implements InitializingBean {
         return currencyNames.get(symbol);
     }
 
-    public boolean isCurrency(String symbol) {
-        return currencyNames.containsKey(symbol);
+    public boolean isCurrency(String code) {
+        return (java.util.Currency.getAvailableCurrencies().stream()
+                .anyMatch(currency -> currency.getCurrencyCode().equals(code)) && !(ignoreSymbols.contains(code)))
+                || currencyNames.containsKey(code);
     }
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
         currencyNames = loadCurrencyNames();
+        ignoreSymbols = Arrays.stream(ignoreSymbolsString.split(",")).map(s -> s.trim()).collect(Collectors.toSet());
+        renameSymbols = (new ObjectMapper()).readValue(renameSymbolsString, new TypeReference<Map<String,String>>(){});
     }
 
     private String getNameOrLeaveSymbol(String symbol) {
@@ -62,19 +90,27 @@ public class ChaingearDataLoader implements InitializingBean {
             return name;
         }
         try {
-           return java.util.Currency.getInstance(symbol).getDisplayName();
+            if (ignoreSymbols.contains(symbol)) {
+                return "Error:" + symbol;
+            }
+            if (renameSymbols.keySet().contains(symbol)) {
+                return renameSymbols.get(symbol);
+            }
+            String fiatName = java.util.Currency.getInstance(symbol).getDisplayName();
+            fiatCurrencies.put(symbol, fiatName);
+            return fiatName;
         } catch (IllegalArgumentException ex) {
-            return symbol;
+            return "Error:" + symbol;
         }
     }
 
-    public TickerDto createTickerDto(Ticker ticker, String market) {
+    public TickerDto createTickerDto(Ticker ticker, CurrencyPair pair, String market) {
         TickerDto dto = new TickerDto();
         dto.setReceived(new Date());
         dto.setTimestamp(ticker.getTimestamp());
         dto.setMarket(market);
-        dto.setBase(getNameOrLeaveSymbol(ticker.getCurrencyPair().counterSymbol));
-        dto.setQuote(getNameOrLeaveSymbol(ticker.getCurrencyPair().baseSymbol));
+        dto.setBase(getNameOrLeaveSymbol(pair.counterSymbol));
+        dto.setQuote(getNameOrLeaveSymbol(pair.baseSymbol));
         LastPriceDto price = new LastPriceDto();
         price.setNativePrice(ticker.getLast());
         dto.setLast(price);
