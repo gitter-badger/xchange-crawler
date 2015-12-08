@@ -52,9 +52,13 @@ public abstract class AbstractMarket<T extends BaseExchangeService> implements I
     }
 
     public String getMarketUrl() {
-        return exchange.getDefaultExchangeSpecification().getHost() != null ?
-                "http://" + exchange.getDefaultExchangeSpecification().getHost() + "/" :
+        String url = exchange.getDefaultExchangeSpecification().getHost() != null ?
+                exchange.getDefaultExchangeSpecification().getHost() :
                 exchange.getDefaultExchangeSpecification().getSslUri();
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "http://" + url;
+        }
+        return url;
     }
 
     protected void loadData() throws IOException {
