@@ -56,6 +56,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 WORKDIR /git/xchange-crawler/xchange-cryptsy
 RUN mvn clean install
 
+WORKDIR /git/xchange-crawler/xchange-btc38
+RUN mvn clean install
+
 WORKDIR /git/xchange-crawler/xchange-rest
 RUN mvn clean install
 
