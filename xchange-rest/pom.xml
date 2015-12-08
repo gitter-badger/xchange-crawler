@@ -90,14 +90,6 @@
             <version>${xchange.version}</version>
         </dependency>
 
-        <!-- absent in last release
-        <dependency>
-            <groupId>com.xeiam.xchange</groupId>
-            <artifactId>xchange-bitx</artifactId>
-            <version>${xchange.version}</version>
-        </dependency>
-        -->
-
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-btce</artifactId>
@@ -197,6 +189,12 @@
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-bleutrade</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-ripple</artifactId>
             <version>${xchange.version}</version>
         </dependency>
 
