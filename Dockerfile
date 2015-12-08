@@ -1,4 +1,4 @@
-# FROM tomcat:8.0.28
+# FROM tomcat:8.0.29
 FROM java:8u66-jdk
 
 MAINTAINER Andrey Lobarev <nxtpool@gmail.com.com>

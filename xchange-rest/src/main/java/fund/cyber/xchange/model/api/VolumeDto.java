@@ -2,6 +2,8 @@ package fund.cyber.xchange.model.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import fund.cyber.xchange.model.common.BigDecimalSerializer;
 
 import java.math.BigDecimal;
 
@@ -12,10 +14,15 @@ import java.math.BigDecimal;
  */
 public class VolumeDto {
     @JsonProperty("native")
+    @JsonSerialize(using = BigDecimalSerializer.class)
     private BigDecimal nativeVolume;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = BigDecimalSerializer.class)
     private BigDecimal usd;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = BigDecimalSerializer.class)
     private BigDecimal btc;
 
     public BigDecimal getNativeVolume() {

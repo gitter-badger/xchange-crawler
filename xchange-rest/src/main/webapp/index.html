@@ -27,8 +27,8 @@
 					<td ng-bind="item.market"></td>
 					<td ng-bind="item.base"></td>
 					<td ng-bind="item.quote"></td>
-					<td ng-bind="item.last.native"></td>
-					<td ng-bind="item.volume.native"></td>
+					<td ng-bind="item.last.native | full"></td>
+					<td ng-bind="item.volume.native | full"></td>
 					<td ng-bind="item.timestamp | date: 'medium'"></td>
 					<td ng-bind="item.received | date: 'medium'"></td>
 				</tr>
