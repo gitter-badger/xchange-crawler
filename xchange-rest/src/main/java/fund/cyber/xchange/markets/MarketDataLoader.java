@@ -89,6 +89,12 @@ public class MarketDataLoader implements InitializingBean {
     @Autowired
     private BleutradeMarket bleutrade;
 
+    @Autowired
+    private RippleMarket ripple;
+
+    @Autowired
+    private GatecoinMarket gatecoin;
+
     private List<AbstractMarket> markets;
 
     private final IndexHolder indexHolder = new IndexHolder();
@@ -102,13 +108,11 @@ public class MarketDataLoader implements InitializingBean {
         markets.add(bitfinex);
         markets.add(okCoin);
         markets.add(bitstamp);
-        //internal errror for some reason
-        //markets.add(lakeBTC);
+        markets.add(lakeBTC);
         markets.add(btce);
         markets.add(coinbase);
         markets.add(kraken);
-        //timeout for some reasons
-        //markets.add(btc38);
+        markets.add(btc38);
         markets.add(quoine);
         markets.add(jubi);
         markets.add(bitbay);
@@ -122,6 +126,11 @@ public class MarketDataLoader implements InitializingBean {
         markets.add(coinsetter);
         markets.add(meXBT);
         markets.add(bleutrade);
+        markets.add(gatecoin);
+
+        //Not yetImplemented
+        //markets.add(ripple);
+
         indexHolder.setLength(markets.size());
     }
 
@@ -136,7 +145,7 @@ public class MarketDataLoader implements InitializingBean {
     @Autowired
     private TaskExecutor taskExecutor;
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 2000)
     protected void loadData() throws IOException {
         taskExecutor.execute(() -> {
             AbstractMarket market = getNextMarket();
