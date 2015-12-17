@@ -1,4 +1,4 @@
-# FROM tomcat:8.0.29
+# FROM tomcat:8.0.30
 FROM java:8u66-jdk
 
 MAINTAINER Andrey Lobarev <nxtpool@gmail.com.com>
@@ -24,7 +24,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.0.29
+ENV TOMCAT_VERSION 8.0.30
 ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 RUN set -x \
@@ -57,6 +57,9 @@ WORKDIR /git/xchange-crawler/xchange-cryptsy
 RUN mvn clean install
 
 WORKDIR /git/xchange-crawler/xchange-btc38
+RUN mvn clean install
+
+WORKDIR /git/xchange-bitbay/xchange-btc38
 RUN mvn clean install
 
 WORKDIR /git/xchange-crawler/xchange-rest

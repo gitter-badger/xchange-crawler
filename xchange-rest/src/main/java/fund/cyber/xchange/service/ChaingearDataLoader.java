@@ -11,7 +11,6 @@ import fund.cyber.xchange.model.chaingear.Currency;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import si.mazi.rescu.serialization.jackson.JacksonMapper;
 
 import java.io.IOException;
 import java.net.URL;
@@ -107,7 +106,9 @@ public class ChaingearDataLoader implements InitializingBean {
     public TickerDto createTickerDto(Ticker ticker, CurrencyPair pair, String market) {
         TickerDto dto = new TickerDto();
         dto.setReceived(new Date());
-        dto.setTimestamp(ticker.getTimestamp());
+        if (ticker.getTimestamp() != null && ticker.getTimestamp().after(new Date(0L))) {
+            dto.setTimestamp(ticker.getTimestamp());
+        }
         dto.setMarket(market);
         dto.setBase(getNameOrLeaveSymbol(pair.counterSymbol));
         dto.setQuote(getNameOrLeaveSymbol(pair.baseSymbol));

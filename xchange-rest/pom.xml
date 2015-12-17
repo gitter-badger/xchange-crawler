@@ -129,7 +129,7 @@
         <dependency>
             <groupId>com.xeiam.xchange</groupId>
             <artifactId>xchange-bitbay</artifactId>
-            <version>${xchange.version}</version>
+            <version>${xchange.version.local}</version>
         </dependency>
 
         <dependency>
