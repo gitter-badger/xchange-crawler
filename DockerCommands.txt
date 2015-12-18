@@ -1,0 +1,24 @@
+Build
+=====
+sudo docker build -t cyberfund/api .
+
+Run
+===
+sudo docker run -d -p 80:8080 cyberfund/api
+
+List running containers
+=======================
+sudo docker ps
+
+Stop Container
+==============
+sudo docker stop <id>
+
+List Images
+===========
+sudo docker images
+
+Remove Image
+============
+sudo docker rmi -f <id>
+
