@@ -18,4 +18,9 @@ public class LakeBTCMarket extends AbstractMarket<LakeBTCMarketDataService> {
         exchange = ExchangeFactory.INSTANCE.createExchange(LakeBTCExchange.class.getName());
     }
 
+    @Override
+    public boolean useCurrentDate() {
+        return true;
+    }
+
 }

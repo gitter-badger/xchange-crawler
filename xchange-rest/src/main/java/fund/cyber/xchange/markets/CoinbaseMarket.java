@@ -18,4 +18,8 @@ public class CoinbaseMarket extends AbstractMarket<CoinbaseMarketDataService> {
         exchange = ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
     }
 
+    @Override
+    public boolean useCurrentDate() {
+        return true;
+    }
 }

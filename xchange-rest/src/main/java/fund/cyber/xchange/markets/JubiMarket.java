@@ -18,4 +18,9 @@ public class JubiMarket extends AbstractMarket<JubiMarketDataService> {
         exchange = ExchangeFactory.INSTANCE.createExchange(JubiExchange.class.getName());
     }
 
+    @Override
+    public boolean useCurrentDate() {
+        return true;
+    }
+
 }

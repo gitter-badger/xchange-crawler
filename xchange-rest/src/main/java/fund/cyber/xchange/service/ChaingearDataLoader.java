@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,10 +104,7 @@ public class ChaingearDataLoader implements InitializingBean {
 
     public TickerDto createTickerDto(Ticker ticker, CurrencyPair pair, String market) {
         TickerDto dto = new TickerDto();
-        dto.setReceived(new Date());
-        if (ticker.getTimestamp() != null && ticker.getTimestamp().after(new Date(0L))) {
-            dto.setTimestamp(ticker.getTimestamp());
-        }
+        dto.setTimestamp(ticker.getTimestamp());
         dto.setMarket(market);
         dto.setBase(getNameOrLeaveSymbol(pair.counterSymbol));
         dto.setQuote(getNameOrLeaveSymbol(pair.baseSymbol));
