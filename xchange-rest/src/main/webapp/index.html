@@ -21,7 +21,6 @@
 					<th>Last</th>
 					<th>Volume</th>
 					<th>Last Update</th>
-					<th>Received</th>
 				</tr>
 				<tr ng-repeat="item in items">
 					<td ng-bind="item.market"></td>
@@ -30,7 +29,6 @@
 					<td ng-bind="item.last.native | full"></td>
 					<td ng-bind="item.volume.native | full"></td>
 					<td ng-bind="item.timestamp | date: 'medium'"></td>
-					<td ng-bind="item.received | date: 'medium'"></td>
 				</tr>
 			</table>
 		</div>
