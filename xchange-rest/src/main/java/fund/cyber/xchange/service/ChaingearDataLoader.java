@@ -11,12 +11,10 @@ import fund.cyber.xchange.model.chaingear.Currency;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import si.mazi.rescu.serialization.jackson.JacksonMapper;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +104,6 @@ public class ChaingearDataLoader implements InitializingBean {
 
     public TickerDto createTickerDto(Ticker ticker, CurrencyPair pair, String market) {
         TickerDto dto = new TickerDto();
-        dto.setReceived(new Date());
         dto.setTimestamp(ticker.getTimestamp());
         dto.setMarket(market);
         dto.setBase(getNameOrLeaveSymbol(pair.counterSymbol));
